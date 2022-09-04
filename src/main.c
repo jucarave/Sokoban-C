@@ -1,7 +1,16 @@
-#include "level.h"
+#include <stdbool.h>
+#include "game.h"
 
 int main() {
-  Level_render();
+  bool gameOver = false;
+
+  Game_start();
+  Game_render();
+
+  while (!gameOver) {
+    Game_loop();
+    Game_render();
+  }
 
   return 0;
 }
