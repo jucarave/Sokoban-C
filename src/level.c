@@ -16,6 +16,18 @@ bool Level_isSolid(int x, int y) {
   return tile == '#';
 }
 
+Box *Level_getBoxAt(int x, int y) {
+  for (int i=0;i<level.boxesCount;i++) {
+    Box *box = &level.boxes[i];
+
+    if (box->x == x && box->y == y) {
+      return box;
+    }
+  }
+
+  return NULL;
+}
+
 void Level_drawMap() {
   for (int y=0;y<level.width;y++) {
     for (int x=0;x<level.height;x++) {
@@ -26,6 +38,14 @@ void Level_drawMap() {
 
 void Level_drawPlayer(int x, int y) {
   screen[y][x] = '@';
+}
+
+void Level_drawBoxes() {
+  for (int i=0;i<level.boxesCount;i++) {
+    Box *box = &level.boxes[i];
+
+    screen[box->y][box->x] = 'B';
+  }
 }
 
 void Level_render() {

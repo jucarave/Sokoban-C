@@ -3,15 +3,16 @@
 #include <ctype.h>
 #include "player.h"
 #include "level.h"
+#include "box.h"
 
 void Player_setPosition(Player *player, int x, int y) {
   player->x = x;
   player->y = y;
 }
 
-bool Player_moveTo(char direction, Player *player) {
-  int xTo = player->x;
-  int yTo = player->y;
+bool Player_moveTo(Player *player, char direction ) {
+  int xTo = 0;
+  int yTo = 0;
   
   if (direction == 'w') {
     yTo -= 1;
@@ -26,9 +27,14 @@ bool Player_moveTo(char direction, Player *player) {
     return false;
   }
 
-  if (!Level_isSolid(xTo, yTo)) {
-    player->x = xTo;
-    player->y = yTo;
+  Box *box = Level_getBoxAt(player->x + xTo, player->y + yTo);
+  if (box != NULL && !Box_moveTo(box, xTo, yTo)) {
+    return false;
+  }
+
+  if (!Level_isSolid(player->x + xTo, player->y + yTo)) {
+    player->x += xTo;
+    player->y += yTo;
 
     return true;
   }
@@ -51,5 +57,5 @@ void Player_update(Player *player) {
     }
   } while (!correctValues);
 
-  Player_moveTo(tolower(direction), player);
+  Player_moveTo(player, tolower(direction));
 }

@@ -12,6 +12,7 @@ void Game_loop() {
 void Game_render() {
   Level_drawMap();
   Level_drawPlayer(player.x, player.y);
+  Level_drawBoxes();
   Level_render();
 }
 

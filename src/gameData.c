@@ -3,7 +3,7 @@
 static Level level_1 = {
  .data = {
   "#######",
-  "#.....#",
+  "#..._.#",
   "##....#",
   "#.....#",
   "#.#.#.#",
@@ -12,8 +12,14 @@ static Level level_1 = {
  },
  .width = 7,
  .height = 7,
+
  .playerX = 3,
- .playerY = 1
+ .playerY = 1,
+
+ .boxesCount = 1,
+ .boxes = {
+  { .x = 3, .y= 4 }
+ }
 };
 
 Level* Data_getLevel(int index) {
