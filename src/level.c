@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 
 #define MAX_LEVEL_WIDTH 20
@@ -16,6 +17,12 @@ static char level[LEVEL_HEIGHT][LEVEL_WIDTH] = {
   "#...#.#",
   "#######"
 };
+
+bool Level_isSolid(int x, int y) {
+  char tile = level[y][x];
+
+  return tile == '#';
+}
 
 void Level_drawMap() {
   for (int y=0;y<LEVEL_HEIGHT;y++) {

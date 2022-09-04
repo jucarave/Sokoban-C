@@ -1,19 +1,38 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "player.h"
+#include "level.h"
+
+void Player_setPosition(Player *player, int x, int y) {
+  player->x = x;
+  player->y = y;
+}
 
 bool Player_moveTo(char direction, Player *player) {
+  int xTo = player->x;
+  int yTo = player->y;
+  
   if (direction == 'w' || direction == 'W') {
-    player->y -= 1;
+    yTo -= 1;
   } else if (direction == 'a' || direction == 'A') {
-    player->x -= 1;
+    xTo -= 1;
   } else if (direction == 's' || direction == 'S') {
-    player->y += 1;
+    yTo += 1;
   } else if (direction == 'd' || direction == 'D') {
-    player->x += 1;
+    xTo += 1;
   } else {
     printf("Invalid direction! %c\n", direction);
+    return false;
   }
+
+  if (!Level_isSolid(xTo, yTo)) {
+    player->x = xTo;
+    player->y = yTo;
+
+    return true;
+  }
+
+  return false;
 }
 
 void Player_update(Player *player) {

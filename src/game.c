@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 #include "level.h"
 #include "player.h"
 
@@ -15,8 +15,7 @@ void Game_render() {
 }
 
 void Game_new() {
-  player.x = 3;
-  player.y = 2;
+  Player_setPosition(&player, 3, 2);
 }
 
 void Game_start() {

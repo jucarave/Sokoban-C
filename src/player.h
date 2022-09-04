@@ -7,5 +7,6 @@ typedef struct {
 } Player;
 
 void Player_update(Player *player);
+void Player_setPosition(Player *player, int x, int y);
 
 #endif
