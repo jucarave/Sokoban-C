@@ -1,33 +1,25 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-
-#define MAX_LEVEL_WIDTH 20
-#define MAX_LEVEL_HEIGHT 20
-#define LEVEL_WIDTH 7
-#define LEVEL_HEIGHT 7
+#include "level.h"
 
 static char screen[MAX_LEVEL_HEIGHT][MAX_LEVEL_WIDTH];
-static char level[LEVEL_HEIGHT][LEVEL_WIDTH] = {
-  "#######",
-  "#.....#",
-  "##....#",
-  "#.....#",
-  "#.#.#.#",
-  "#...#.#",
-  "#######"
-};
+static Level level;
+
+void Level_set(Level *_level) {
+  level = *_level;
+}
 
 bool Level_isSolid(int x, int y) {
-  char tile = level[y][x];
+  char tile = level.data[y][x];
 
   return tile == '#';
 }
 
 void Level_drawMap() {
-  for (int y=0;y<LEVEL_HEIGHT;y++) {
-    for (int x=0;x<LEVEL_WIDTH;x++) {
-      screen[y][x] = level[y][x];
+  for (int y=0;y<level.width;y++) {
+    for (int x=0;x<level.height;x++) {
+      screen[y][x] = level.data[y][x];
     }
   }
 }
@@ -38,8 +30,8 @@ void Level_drawPlayer(int x, int y) {
 
 void Level_render() {
   printf("\n");
-  for (int i=0;i<LEVEL_HEIGHT;i++) {
-    printf("    %.*s\n", LEVEL_WIDTH, screen[i]);
+  for (int i=0;i<level.height;i++) {
+    printf("    %.*s\n", level.width, screen[i]);
   }
   printf("\n");
 }

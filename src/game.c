@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "level.h"
 #include "player.h"
+#include "gameData.h"
 
 static Player player;
 
@@ -15,7 +16,10 @@ void Game_render() {
 }
 
 void Game_new() {
-  Player_setPosition(&player, 3, 2);
+  Level *level = Data_getLevel(1);
+
+  Player_setPosition(&player, level->playerX, level->playerY);
+  Level_set(level);
 }
 
 void Game_start() {

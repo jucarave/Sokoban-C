@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "player.h"
 #include "level.h"
 
@@ -12,13 +13,13 @@ bool Player_moveTo(char direction, Player *player) {
   int xTo = player->x;
   int yTo = player->y;
   
-  if (direction == 'w' || direction == 'W') {
+  if (direction == 'w') {
     yTo -= 1;
-  } else if (direction == 'a' || direction == 'A') {
+  } else if (direction == 'a') {
     xTo -= 1;
-  } else if (direction == 's' || direction == 'S') {
+  } else if (direction == 's') {
     yTo += 1;
-  } else if (direction == 'd' || direction == 'D') {
+  } else if (direction == 'd') {
     xTo += 1;
   } else {
     printf("Invalid direction! %c\n", direction);
@@ -50,5 +51,5 @@ void Player_update(Player *player) {
     }
   } while (!correctValues);
 
-  Player_moveTo(direction, player);
+  Player_moveTo(tolower(direction), player);
 }
