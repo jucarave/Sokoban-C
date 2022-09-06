@@ -15,7 +15,15 @@ void Level_set(Level *_level) {
 bool Level_isSolid(int x, int y) {
   char tile = level.data[y][x];
 
-  return tile == '#';
+  if (tile == '#') {
+    return true;
+  }
+
+  if (Level_getBoxAt(x, y) != NULL) {
+    return true;
+  }
+
+  return false;
 }
 
 Box *Level_getBoxAt(int x, int y) {
