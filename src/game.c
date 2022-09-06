@@ -2,8 +2,10 @@
 #include "level.h"
 #include "player.h"
 #include "gameData.h"
+#include "movement.h"
 
 static Player player;
+static int currentLevel = 1;
 
 void Game_loop() {
   Player_update(&player);
@@ -16,11 +18,18 @@ void Game_render() {
   Level_render();
 }
 
-void Game_new() {
-  Level *level = Data_getLevel(1);
+void Game_loadLevel() {
+  Level *level = Data_getLevel(currentLevel);
 
   Player_setPosition(&player, level->playerX, level->playerY);
   Level_set(level);
+}
+
+void Game_nextLevel() {
+  currentLevel += 1;
+
+  Movement_clearList();
+  Game_loadLevel();
 }
 
 void Game_start() {
@@ -32,5 +41,5 @@ void Game_start() {
   printf("\nChoose your option: ");
   scanf("%c", &option);
 
-  Game_new();
+  Game_loadLevel();
 }

@@ -31,8 +31,8 @@ Box *Level_getBoxAt(int x, int y) {
 }
 
 void Level_drawMap() {
-  for (int y = 0; y < level.width; y++) {
-    for (int x = 0; x < level.height; x++) {
+  for (int y = 0; y < level.height; y++) {
+    for (int x = 0; x < level.width; x++) {
       screen[y][x] = level.data[y][x];
     }
   }
