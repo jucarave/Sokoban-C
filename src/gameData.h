@@ -3,6 +3,7 @@
 
 #include "level.h"
 
-Level* Data_getLevel(int index);
+Level *Data_loadLevel(int index);
+void Data_freeLevel(Level *level);
 
 #endif

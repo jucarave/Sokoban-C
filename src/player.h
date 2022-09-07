@@ -2,11 +2,11 @@
 #define PLAYER_HEADER
 
 typedef struct {
-  int x;
-  int y;
+  char x;
+  char y;
 } Player;
 
 void Player_update(Player *player);
-void Player_setPosition(Player *player, int x, int y);
+void Player_setPosition(Player *player, char x, char y);
 
 #endif

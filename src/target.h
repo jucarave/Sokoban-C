@@ -2,8 +2,8 @@
 #define TARGET_HEADER
 
 typedef struct {
-  int x;
-  int y;
+  char x;
+  char y;
 } Target;
 
 #endif

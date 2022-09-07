@@ -4,10 +4,10 @@
 #include <stdbool.h>
 
 typedef struct {
-  int x;
-  int y;
+  char x;
+  char y;
 } Box;
 
-bool Box_moveTo(Box *box, int xTo, int yTo);
+bool Box_moveTo(Box *box, char xTo, char yTo);
 
 #endif

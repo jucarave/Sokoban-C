@@ -19,10 +19,14 @@ void Game_render() {
 }
 
 void Game_loadLevel() {
-  Level *level = Data_getLevel(currentLevel);
+  Level *level = Data_loadLevel(currentLevel);
+  if (level == NULL) {
+    return;
+  }
 
   Player_setPosition(&player, level->playerX, level->playerY);
   Level_set(level);
+  Data_freeLevel(level);
 }
 
 void Game_nextLevel() {

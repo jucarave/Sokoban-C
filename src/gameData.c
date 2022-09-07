@@ -1,65 +1,53 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "level.h"
 
-static Level level_1 = {
-  .data = {
-    "#######",
-    "#..._.#",
-    "##....#",
-    "#.....#",
-    "#.#.#.#",
-    "#...#.#",
-    "#######"
-  },
-  .width = 7,
-  .height = 7,
+void Data_freeLevel(Level *level) {
+  free(level);
+}
 
-  .playerX = 3,
-  .playerY = 1,
+Level *Data_loadLevel(int index) {
+  int levelIndex = 1;
 
-  .boxesCount = 1,
-  .boxes = {
-    { .x = 3, .y = 4 }
-  },
-
-  .targets = {
-    { .x = 4, .y = 1 }
-  }
-};
-
-static Level level_2 = {
-  .data = {
-    "  #####   ",
-    "###...####",
-    "#........#",
-    "#..#..#..#",
-    "#.._._#..#",
-    "##########"
-  },
-  .width = 10,
-  .height = 6,
-
-  .playerX = 7,
-  .playerY = 4,
-
-  .boxesCount = 2,
-  .boxes = {
-    { .x = 7, .y = 2 },
-    { .x = 7, .y = 3 }
-  },
-
-  .targets = {
-    { .x = 3, .y = 4 },
-    { .x = 5, .y = 4 }
-  }
-};
-
-Level* Data_getLevel(int index) {
-  if (index == 1) {
-    return &level_1;
-  } else if (index == 2) {
-    return &level_2;
+  FILE *file = fopen("game.data", "rb");
+  if (file == NULL) {
+    printf("Error opening the game.data file.\n");
+    return NULL;
   }
 
-  return NULL;
+  Level *level = malloc(sizeof(Level));
+
+  while (levelIndex < index) {
+    unsigned char skipLevel;
+
+    fread(&skipLevel, sizeof(skipLevel), 1, file);
+    fseek(file, (long) skipLevel, SEEK_CUR);
+
+    levelIndex += 1;
+  }
+
+  fseek(file, 1, SEEK_CUR);
+  fread(&level->width, sizeof(char), 1, file);
+  fread(&level->height, sizeof(char), 1, file);
+
+  fread(&level->playerX, sizeof(char), 1, file);
+  fread(&level->playerY, sizeof(char), 1, file);
+
+  fread(&level->boxesCount, sizeof(char), 1, file);
+
+  for (int i = 0; i < level->boxesCount; i++) {
+    fread(&level->boxes[i].x, sizeof(char), 1, file);
+    fread(&level->boxes[i].y, sizeof(char), 1, file);
+
+    fread(&level->targets[i].x, sizeof(char), 1, file);
+    fread(&level->targets[i].y, sizeof(char), 1, file);
+  }
+
+  for (int y = 0; y < level->height; y++) {
+    fread(&level->data[y], sizeof(char) * level->width, 1, file);
+  }
+
+  fclose(file);
+
+  return level;
 }

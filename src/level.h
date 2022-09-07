@@ -11,13 +11,13 @@
 
 typedef struct {
   char data[MAX_LEVEL_HEIGHT][MAX_LEVEL_WIDTH];
-  int width;
-  int height;
+  char width;
+  char height;
 
-  int playerX;
-  int playerY;
+  char playerX;
+  char playerY;
 
-  int boxesCount;
+  char boxesCount;
   Box boxes[MAX_BOXES];
 
   Target targets[MAX_BOXES];

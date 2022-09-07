@@ -6,12 +6,12 @@
 #include "box.h"
 #include "movement.h"
 
-void Player_setPosition(Player *player, int x, int y) {
+void Player_setPosition(Player *player, char x, char y) {
   player->x = x;
   player->y = y;
 }
 
-bool Player_moveTo(Player *player, int xTo, int yTo) {
+bool Player_moveTo(Player *player, char xTo, char yTo) {
   Box *box = Level_getBoxAt(player->x + xTo, player->y + yTo);
   if (box != NULL && !Box_moveTo(box, xTo, yTo)) {
     return false;
@@ -47,8 +47,8 @@ void Player_undoMovement(Player *player) {
 }
 
 bool Player_updateMovement(Player *player, char direction) {
-  int xTo = 0;
-  int yTo = 0;
+  char xTo = 0;
+  char yTo = 0;
   
   if (direction == 'w') {
     yTo -= 1;
