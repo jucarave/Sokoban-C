@@ -18,15 +18,17 @@ void Game_render() {
   Level_render();
 }
 
-void Game_loadLevel() {
+int Game_loadLevel() {
   Level *level = Data_loadLevel(currentLevel);
   if (level == NULL) {
-    return;
+    return -1;
   }
 
   Player_setPosition(&player, level->playerX, level->playerY);
   Level_set(level);
   Data_freeLevel(level);
+
+  return 0;
 }
 
 void Game_nextLevel() {
@@ -36,7 +38,7 @@ void Game_nextLevel() {
   Game_loadLevel();
 }
 
-void Game_start() {
+int Game_start() {
   char option;
 
   printf("Welcome to warehose!\n");
@@ -45,5 +47,5 @@ void Game_start() {
   printf("\nChoose your option: ");
   scanf("%c", &option);
 
-  Game_loadLevel();
+  return Game_loadLevel();
 }

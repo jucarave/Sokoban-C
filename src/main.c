@@ -15,7 +15,10 @@ void onLevelComplete() {
 int main() {
   bool gameOver = false;
 
-  Game_start();
+  if (Game_start() != 0) {
+    return -1;
+  }
+
   Game_render();
 
   while (!gameOver) {
