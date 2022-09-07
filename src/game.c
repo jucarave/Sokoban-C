@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include "level.h"
 #include "player.h"
 #include "gameData.h"
@@ -6,6 +7,7 @@
 
 static Player player;
 static int currentLevel = 1;
+static bool isGameOver;
 
 void Game_loop() {
   Player_update(&player);
@@ -34,6 +36,14 @@ int Game_loadLevel() {
 void Game_nextLevel() {
   currentLevel += 1;
 
+  if (currentLevel == 3) {
+    printf("\n\nYou've finished the last level!\n\n");
+    isGameOver = true;
+    return;
+  } else {
+    printf("\n\nLoading next Level!\n\n");
+  }
+
   Movement_clearList();
   Game_loadLevel();
 }
@@ -48,4 +58,8 @@ int Game_start() {
   scanf("%c", &option);
 
   return Game_loadLevel();
+}
+
+bool Game_isGameOver() {
+  return isGameOver;
 }
